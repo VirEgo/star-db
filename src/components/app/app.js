@@ -23,6 +23,12 @@ export default class App extends Component {
         if (this.state.hasError) {
             return <ErrorIndicator />
         }
+        const itemList = (
+            <ItemList
+                onItemSelected={this.onItemSelected}
+                getData={this.swapiService.getAllPlanets}
+                renderItem={(item) => item.name}></ItemList>
+        );
         return (
             <div className="container">
                 <Header></Header>
@@ -31,9 +37,7 @@ export default class App extends Component {
 
                 <div className="row">
                     <div className="col-6">
-                        <ItemList
-                            getData={this.swapiService.getAllPlanets}
-                            onItemSelected={this.onItemSelected}></ItemList>
+                        {itemList}
                     </div>
                     <div className="col-6">
                         <PersonDetails personId={this.state.selectedPerson}></PersonDetails>
@@ -42,9 +46,7 @@ export default class App extends Component {
 
                 <div className="row">
                     <div className="col-6">
-                        <ItemList
-                            getData={this.swapiService.getAllStarShips}
-                            onItemSelected={this.onItemSelected}></ItemList>
+                        {itemList}
                     </div>
                     <div className="col-6">
                         <PersonDetails personId={this.state.selectedPerson}></PersonDetails>
