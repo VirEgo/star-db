@@ -6,30 +6,21 @@ import SwapiService from '../../services/swapi-service';
 export default class PersonDetails extends Component {
     swapiService = new SwapiService();
     state = {
-        name: null,
-        gender: null,
-        birthYear: null,
-        eyeColor: null
-
+        person: {}
     }
 
     constructor() {
         super();
         this.getPerson();
     }
+    onPersonLoaded = (person) => {
+        this.setState({ person });
+    }
 
     getPerson() {
         const id = Math.floor(Math.random() * 25) + 2;
         this.swapiService.getPerson(id)
-            .then((person) => {
-                this.setState({
-                    id,
-                    name: person.name,
-                    gender: person.gender,
-                    birthYear: person.birthYear,
-                    eyeColor: person.eyeColor
-                })
-            })
+            .then(this.onPersonLoaded)
     }
     render() {
 
@@ -42,14 +33,14 @@ export default class PersonDetails extends Component {
                 <div className="person-description">
                     <div className="person-name">{name}</div>
                     <div className="person-gender person-desc-item">
-                        Gender male
-                </div>
+                        Gender {gender}
+                    </div>
                     <div className="person-birth person-desc-item">
-                        Birth Year 43
-                </div>
+                        Birth Year {birthYear}
+                    </div>
                     <div className="person-eye-color person-desc-item">
-                        Eye Color red
-                </div>
+                        Eye Color {eyeColor}
+                    </div>
                 </div>
             </div>
         );
