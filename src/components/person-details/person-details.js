@@ -5,30 +5,46 @@ import SwapiService from '../../services/swapi-service';
 
 export default class PersonDetails extends Component {
     swapiService = new SwapiService();
+
     state = {
-        person: {}
+        person: null
     }
 
-    constructor() {
-        super();
-        this.getPerson();
-    }
-    onPersonLoaded = (person) => {
-        this.setState({ person });
+    componentDidMount() {
+        this.updatePerson();
     }
 
-    getPerson() {
-        const id = Math.floor(Math.random() * 25) + 2;
-        this.swapiService.getPerson(id)
-            .then(this.onPersonLoaded)
+    componentDidUpdate(prevProps) {
+        if (this.props.personId !== prevProps.personId) {
+            this.updatePerson();
+        }
     }
+
+    updatePerson() {
+        const { personId } = this.props;
+        if (!personId) {
+            return
+        }
+
+        this.swapiService
+            .getPerson(personId)
+            .then((person) => {
+                this.setState({ person })
+            });
+    }
+
     render() {
+        if (!this.state.person) {
+            return <span>Select a person from a list</span>
+        }
 
-        const { name, gender, birthYear, eyeColor } = this.state;
+        const {
+            id, name, gender, birthYear, eyeColor
+        } = this.state.person;
         return (
             <div className="person-detail-wrapper">
                 <div className="person-image">
-                    <img src="https://www.pngkey.com/png/full/198-1985991_r2d2-600x315-r2-d2-soundboard.png" alt="R2-D2" />
+                    <img src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} alt="R2-D2" />
                 </div>
                 <div className="person-description">
                     <div className="person-name">{name}</div>
