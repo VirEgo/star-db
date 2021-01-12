@@ -1,0 +1,27 @@
+.random-planet-wrapper {
+    display: flex;
+    padding: 15px;
+    background-color: #303030;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    .planet-image {
+        width: 100%;
+        max-width: 250px;
+        height: 100%;
+        border-radius: 10px;
+        margin-right: 15px;
+    }
+    .planet-description {
+        .list-group {
+            .list-group-item {
+                .term {
+                    margin-right: 5px;
+                }
+            }
+        }
+        .planet-name {
+            font-size: 32px;
+            font-weight: bold;
+        }
+    }
+}

@@ -1,0 +1,9 @@
+.item-list-wrapper {
+    margin-bottom: 15px;
+    ul li {
+        &:hover {
+            background-color: #313131;
+            cursor: pointer;
+        }
+    }
+}
