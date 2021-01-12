@@ -1,3 +1,9 @@
+.spinner-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @keyframes ldio-40bfxuzy8hr {
     0% {
         transform: rotate(0);
@@ -103,7 +109,7 @@
     height: 200px;
     display: inline-block;
     overflow: hidden;
-    background: #f1f2f3;
+    background: transparent;
 }
 
 .ldio-40bfxuzy8hr {
