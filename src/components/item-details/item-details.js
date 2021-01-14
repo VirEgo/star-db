@@ -1,50 +1,52 @@
 import React, { Component } from 'react';
-import './person-details.scss';
+import './item-details.scss';
 import SwapiService from '../../services/swapi-service';
 
 
-export default class PersonDetails extends Component {
+export default class ItemDetails extends Component {
     swapiService = new SwapiService();
 
     state = {
-        person: null
+        item: null,
+        image: null
     }
 
     componentDidMount() {
-        this.updatePerson();
+        this.updateItem();
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.personId !== prevProps.personId) {
-            this.updatePerson();
+        if (this.props.itemId !== prevProps.itemId) {
+            this.updateItem();
         }
     }
 
-    updatePerson() {
-        const { personId } = this.props;
-        if (!personId) {
+    updateItem() {
+        const { itemId, getData, getImageUrl } = this.props;
+        if (!itemId) {
             return
         }
 
-        this.swapiService
-            .getPerson(personId)
-            .then((person) => {
-                this.setState({ person })
+        getData(itemId)
+            .then((item) => {
+                this.setState({
+                    item,
+                    image: getImageUrl(item)
+                })
             });
     }
 
     render() {
-        if (!this.state.person) {
+        const { item, image } = this.state;
+        if (!this.state.item) {
             return <span>Select a person from a list</span>
         }
 
-        const {
-            id, name, gender, birthYear, eyeColor
-        } = this.state.person;
+        const { name, gender, birthYear, eyeColor } = item;
         return (
             <div className="person-detail-wrapper">
                 <div className="person-image">
-                    <img src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} alt="R2-D2" />
+                    <img src={image} alt="" />
                 </div>
                 <div className="person-description">
                     <div className="person-name">{name}</div>

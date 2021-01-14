@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './people-page.scss';
 
 import ItemList from '../item-list/item-list';
-import PersonDetails from '../person-details/person-details';
+import PersonDetails from '../item-details/item-details';
 import SwapiService from '../../services/swapi-service';
 import Row from '../row-component/row-component';
 import ErrorBoundry from '../error-boundry/error-boundry';
@@ -24,8 +24,11 @@ export default class PeoplePage extends Component {
         const itemList = (
             <ItemList
                 getData={this.swapiService.getAllPeople}
-                onItemSelected={this.onItemSelected}
-                renderItem={({ name, gender, birthYear }) => `${name} (${gender}, ${birthYear})`}></ItemList>
+                onItemSelected={this.onItemSelected}>
+                {
+                    (i) => `${i.name} (${i.birthYear})`
+                }
+            </ItemList>
         );
 
         const personDetails = (
