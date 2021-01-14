@@ -3,6 +3,19 @@ import './item-details.scss';
 import SwapiService from '../../services/swapi-service';
 
 
+const Record = ({ item, field, label }) => {
+    return (
+        <li className="list-group-item">
+            <span className="term">{label}</span>
+            <span>{item[field]}</span>
+        </li>
+    );
+};
+
+export {
+    Record
+}
+
 export default class ItemDetails extends Component {
     swapiService = new SwapiService();
 
@@ -41,24 +54,19 @@ export default class ItemDetails extends Component {
         if (!this.state.item) {
             return <span>Select a person from a list</span>
         }
-
-        const { name, gender, birthYear, eyeColor } = item;
+        const { name } = item;
         return (
             <div className="person-detail-wrapper">
                 <div className="person-image">
                     <img src={image} alt="" />
                 </div>
                 <div className="person-description">
-                    <div className="person-name">{name}</div>
-                    <div className="person-gender person-desc-item">
-                        Gender {gender}
-                    </div>
-                    <div className="person-birth person-desc-item">
-                        Birth Year {birthYear}
-                    </div>
-                    <div className="person-eye-color person-desc-item">
-                        Eye Color {eyeColor}
-                    </div>
+                    <h4 className="person-name">{name}</h4>
+                    <ul className="list-group list-group-flush">
+                        {React.Children.map(this.props.children, (child) => {
+                            return React.cloneElement(child, { item })
+                        })}
+                    </ul>
                 </div>
             </div>
         );
