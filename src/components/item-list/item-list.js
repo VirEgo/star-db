@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Spinner from '../spinner/spinner';
 import './item-list.scss';
 
-export default class ItemList extends Component {
+class ItemList extends Component {
 
     state = {
         itemList: null
@@ -18,7 +18,6 @@ export default class ItemList extends Component {
                 });
             })
     }
-
 
     renderItems(arr) {
         return arr.map((item) => {
@@ -50,3 +49,8 @@ export default class ItemList extends Component {
         );
     }
 }
+
+const f = (a) => {
+    return ItemList
+};
+export default f();
