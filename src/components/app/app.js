@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-import './app.scss';
 import Header from '../header/header';
-import RandomPlanet from '../random-planet/random-planet';
 import ErrorIndicator from '../error-indicator/error-indicator';
-import ItemList from '../item-list/item-list';
-import ItemDetails, { Record } from '../item-details/item-details';
 import SwapiService from '../../services/swapi-service';
-import Row from '../row-component/row-component';
+import { SwapiServiceProvider } from '../swapi-service-context';
+import './app.scss';
+
+import {
+    PersonDetails,
+    PlanetDetails,
+    StarshipDetails,
+    PersonList,
+    PlanetList,
+    StarshipList
+} from '../sw-components';
 
 export default class App extends Component {
     swapiService = new SwapiService();
@@ -23,44 +29,22 @@ export default class App extends Component {
         if (this.state.hasError) {
             return <ErrorIndicator />
         }
-        const itemList = (
-            <ItemList
-                onItemSelected={this.onItemSelected}
-                getData={this.swapiService.getAllPlanets}
-                renderItem={(item) => item.name}></ItemList>
-        );
 
-        const { getPerson, getStarShip, getPersonImage, getStarshipImage } = this.swapiService;
-
-        const personDetails = (
-            <ItemDetails itemId={11}
-                getData={getPerson}
-                getImageUrl={getPersonImage} >
-
-                <Record field="gender" label="Gender" />
-                <Record field="eyeColor" label="Eye Color" />
-            </ItemDetails>
-        );
-
-        const starshipDetails = (
-            <ItemDetails itemId={5}
-                getData={getStarShip}
-                getImageUrl={getStarshipImage}>
-                <Record field="model" label="Model" />
-                <Record field="length" label="Length" />
-                <Record field="costInCredits" label="Cost" />
-            </ItemDetails>
-        );
         return (
-            <div className="container">
-                <Header></Header>
-                <RandomPlanet></RandomPlanet>
-                <Row leftElem={itemList} />
-                <Row leftElem={personDetails} rightElem={starshipDetails} />
-            </div>
+            <SwapiServiceProvider value={this.swapiService}>
+                <div className="container">
+                    <Header></Header>
+                    <PersonDetails itemId={11} />
+                    <PlanetDetails itemId={5} />
+                    <StarshipDetails itemId={9} />
 
-        )
-    }
+                    <PersonList />
+                    <PlanetList />
+                    <StarshipList />
+                </div>
+            </SwapiServiceProvider>
+        );
+    };
 
-}
+};
 
