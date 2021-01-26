@@ -55,6 +55,7 @@ export default class App extends Component {
             <div className="container">
                 <Header></Header>
                 <RandomPlanet></RandomPlanet>
+                <Row leftElem={itemList} />
                 <Row leftElem={personDetails} rightElem={starshipDetails} />
             </div>
 

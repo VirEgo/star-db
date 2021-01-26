@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Spinner from '../spinner/spinner';
 import './item-list.scss';
 
-class ItemList extends Component {
+export default class ItemList extends Component {
 
     state = {
         itemList: null
@@ -50,7 +50,15 @@ class ItemList extends Component {
     }
 }
 
-const f = (a) => {
-    return ItemList
-};
-export default f();
+// const f = (a) => {
+//     return class extends Component {
+
+//         componentDidMount() {
+//             console.log(this.props);
+//         }
+//         render() {
+//             return ItemList
+//         }
+//     }
+// };
+// export default f();
