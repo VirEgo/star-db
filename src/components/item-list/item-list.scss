@@ -1,9 +1,9 @@
-.item-list-wrapper {
-    margin-bottom: 15px;
-    ul li {
-        &:hover {
-            background-color: #313131;
-            cursor: pointer;
-        }
-    }
+.item-list {
+  margin-bottom: 1rem;
+  .list-group-item {
+    cursor: pointer;
+  }
+  .list-group-item:hover {
+    background-color: #444;
+  }
 }
